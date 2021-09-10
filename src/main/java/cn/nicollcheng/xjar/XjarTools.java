@@ -25,7 +25,11 @@ public class XjarTools {
             //加密的密钥
             XKey xKey = XKit.key(password);
             //第1个参数是源文件，第2个参数是加密后的jar文件，第三个参数位加密密钥
-            XBoot.encrypt(src, dest, xKey);
+            XBoot.encrypt(src, dest, xKey,
+                    (entry) -> {
+                        String name = entry.getName();
+                        return !name.contains("static/");
+                    });
         }
     }
 }
